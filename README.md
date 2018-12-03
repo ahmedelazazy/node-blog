@@ -1,6 +1,6 @@
-# Node Auth App
+# Mini Blog - NodeJS
 
-NodeJS Passport Authentication Boilerplate
+Mini blog app using NodeJS, it has posts, comments, authentication, public access and members only access.
 
 ## Installation
 
@@ -15,15 +15,16 @@ npm install --save
 * Registeration
 * Login
 * Logout
-* Members only access
-* Password hashing
+* Public posts
+* Only members can add new post
+* Adding comments is public
 * Validations
 * Flash messages
 
 ## Used Packages
 
 * Express
-* Mongoose
+* Monk
 * Passport
 * Connect-flash
 * Express-validator
