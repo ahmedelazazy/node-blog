@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	.row
+		.col-10.mx-auto
+			h1.h3.mb-3.font-weight-normal Add Category
+			if errors
+				each error, i in errors
+					div.alert.alert-danger #{error.msg}
+
+			form(method='post', action='/categories/')
+				.form-group
+					label Category Name
+					input.form-control(type='text', name='name', placeholder='Category Name')
+				.form-group
+					button.btn.btn-primary(type='submit') Save

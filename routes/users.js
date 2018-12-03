@@ -9,8 +9,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('./../models/user');
 var router = express.Router();
 
-
-
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
@@ -42,20 +40,24 @@ router.post(
   upload.single('profilepicture'),
   [
     check('name')
-      .exists()
+      .not()
+      .isEmpty()
       .withMessage('Name is required'),
     check('email')
-      .exists()
+      .not()
+      .isEmpty()
       .withMessage('Email is required')
       .isEmail()
       .withMessage('Email is not valid'),
     check('password')
-      .exists()
+      .not()
+      .isEmpty()
       .withMessage('Password is required')
       .isLength({ min: 6 })
       .withMessage('Password must have at least 6 characters'),
     check('password2')
-      .exists()
+      .not()
+      .isEmpty()
       .withMessage('Confirm Password is required')
       .custom((value, { req }) => value === req.body.password)
       .withMessage("Passwords doesn't match")
@@ -89,9 +91,8 @@ router.post(
   }
 );
 
-
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {

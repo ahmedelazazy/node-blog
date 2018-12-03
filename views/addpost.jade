@@ -1,0 +1,30 @@
+extends layout
+
+block content
+	.row
+		.col-10.mx-auto
+			h1.h3.mb-3.font-weight-normal Add Post
+			if errors
+				each error, i in errors
+					div.alert.alert-danger #{error.msg}
+
+			form(method='post', action='/posts/addpost', enctype='multipart/form-data')
+				.form-group
+					label Post Title
+					input.form-control(type='text', name='title', placeholder='Post Title')
+				.form-group
+					label Category
+					select.form-control(name="category", placeholder="Select Category")
+						each cat, i in categories
+							option #{cat.name}
+				.form-group
+					label Body
+					textarea#editor.form-control(name='body', placeholder='Body')
+				.form-group
+					label Image
+					input.form-control(type='file', name='postimage')
+				.form-group
+					button.btn.btn-primary(type='submit') Save
+	script(src='/javascripts/ckeditor.js')
+	script.
+		ClassicEditor.create( document.querySelector( '#editor' ) ).catch( error => {console.error( error );} );

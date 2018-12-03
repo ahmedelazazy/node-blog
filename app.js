@@ -12,10 +12,14 @@ var flash = require('connect-flash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var index = require('./routes/index');
+var posts = require('./routes/posts');
+var users = require('./routes/users');
+var categories = require('./routes/categories');
+
 var injectState = require('./middleware/inject-state');
 var injectMessage = require('./middleware/inject-message');
+var moment = require('moment');
 
 var app = express();
 
@@ -27,6 +31,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 app.use(cookieParser('secret'));
 app.use(session({ cookie: { maxAge: 60000 } }));
@@ -34,10 +39,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.locals.moment = moment;
+app.locals.trucText = (text, length) => {
+  return text.substring(0, length) + '...';
+};
+
 app.use(injectMessage);
 app.use(injectState);
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', index);
+app.use('/users', users);
+app.use('/posts', posts);
+app.use('/categories', categories);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

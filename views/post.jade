@@ -1,0 +1,39 @@
+extends layout
+
+block content
+ .row
+  .col-10.mx-auto
+   if errors
+    each error, i in errors
+     div.alert.alert-danger #{error.msg}
+
+   .card.flex-md-row.mb-4.shadow-sm
+    .card-body.d-flex.flex-column.align-items-start
+     a.d-inline-block.mb-2.text-primary(href='/posts/category/' + "#{post.category}") #{post.category}
+     h3.mb-0 #{post.title}
+     p.blog-post-meta
+      | #{moment(post.date).fromNow()}
+      |  by 
+      a(href='/posts/author/' + "#{post.author}") #{post.author}
+     p.card-text.mb-auto !{post.body}
+     if post.comments
+      hr
+      h3 Comments
+      each comment, i in post.comments
+       .comment    
+        p.author #{comment.writer} - #{moment(comment.date).fromNow()}
+        p.text #{comment.text}
+     hr
+     .col-10
+      form(method='post', action='/posts/comment/' + "#{post._id}")
+       strong Add your comment
+       .form-group
+        label Your Name
+        input.form-control(type='text', name='writer', placeholder='Name')
+       .form-group
+        label Your Comment
+        textarea.form-control(type='text', name='text', placeholder='Comment')
+       .form-group
+        button.btn.btn-primary(type='submit') Save 
+    img.align-middle.img-thumbnail2.card-img-right.flex-auto.d-none.d-lg-block(src="/" + "#{post.postimage}")
+      
