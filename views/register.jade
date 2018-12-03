@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	.row
+		.col-6.mx-auto
+			h1.h3.mb-3.font-weight-normal Register
+			if errors
+				each error, i in errors
+					div.alert.alert-danger #{error.msg}
+
+			form(method='post', action='/users/register', enctype='multipart/form-data')
+				.form-group
+					label Name
+					input.form-control(type='text', name='name', placeholder='Name')
+				.form-group
+					label Email
+					input.form-control(type='text', name='email', placeholder='Email')
+				.form-group
+					label Password
+					input.form-control(type='password', name='password', placeholder='Password')
+				.form-group
+					label Confirm Password
+					input.form-control(type='password', name='password2', placeholder='Confirm Password')
+				.form-group
+					label Profile Picture
+					input.form-control(type='file', name='profilepicture')
+				.form-group
+					button.btn.btn-primary(type='submit') Register
