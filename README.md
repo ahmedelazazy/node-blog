@@ -1,4 +1,4 @@
-# Foobar
+# Node Auth App
 
 NodeJS Passport Authentication Boilerplate
 
@@ -12,18 +12,21 @@ npm install --save
 
 ## Features
 
-Registeration
-Login
-Logout
-Member only access
+* Registeration
+* Login
+* Logout
+* Members only access
+* Password hashing
+* Validations
+* Flash messages
 
 ## Used Packages
 
-Express
-Mongoose
-Passport
-Connect-flash
-Express-validator
-Jade
-Bcrypt
-Multer
+* Express
+* Mongoose
+* Passport
+* Connect-flash
+* Express-validator
+* Jade
+* Bcrypt
+* Multer
